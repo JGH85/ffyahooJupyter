@@ -34,14 +34,21 @@ print(f"standings:{lg.standings()}")
 print(f"teams:{lg.teams()}")
 print(f"current user team:{lg.team_key()}")
 print(f"current week:{lg.current_week()}")
-team = lg.to_team(lg.team_key())
+myteam = lg.to_team(lg.team_key())
 week = 1
-print(f"roster week {week}: {team.roster(week)}")
-matchup = lg.to_team(team.matchup(week))
-print(f"matchup week {week}:{matchup.name}")
+print(f"roster week {week}: {myteam.roster(week)}")
+matchup = lg.to_team(myteam.matchup(week))
+# print(f"matchup week {week}:{matchup.name}")
 
 # missing functionality
 # add name property to team
 # add players class
 # add custom data for team
 # save data to database
+
+# teamid = "390.l.707700.t.1"
+# testteam = team(oauth, teamid)
+teamid = "390.l.707700.t.1"
+newteam = team.Team(sc, teamid)
+
+print(f"team name:{newteam.teamname}")

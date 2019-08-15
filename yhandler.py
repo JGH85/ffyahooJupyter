@@ -1,6 +1,7 @@
 #!/bin/python
 
 import json
+import objectpath
 
 YAHOO_ENDPOINT = 'https://fantasysports.yahooapis.com/fantasy/v2'
 
@@ -86,3 +87,33 @@ class YHandler:
         if week is not None:
             week_uri = ";week={}".format(week)
         return self.get("league/{}/scoreboard{}".format(league_id, week_uri))
+
+    def get_json_t(self, url):
+        # YAHOO_ENDPOINT = 'https://fantasysports.yahooapis.com/fantasy/v2'
+        # response = sc.session.get("{}/{}".format(YAHOO_ENDPOINT, url),params={'format': 'json'})
+        # jresp = response.json()
+        jresp = self.get(url)
+        t = objectpath.Tree(jresp)
+        return t
+
+    def get_json_dump(self, url):
+        # YAHOO_ENDPOINT = 'https://fantasysports.yahooapis.com/fantasy/v2'
+        response = self.sc.session.get("{}/{}".format(YAHOO_ENDPOINT, url),params={'format': 'json'})
+        jresp = response.json()
+        return json.dumps(jresp)
+        
+    def get_json(self, url):
+        # YAHOO_ENDPOINT = 'https://fantasysports.yahooapis.com/fantasy/v2'
+        response = self.sc.session.get("{}/{}".format(YAHOO_ENDPOINT, url),params={'format': 'json'})
+        jresp = response.json()
+        return jresp
+
+    def get_team_dict(self, team_id):
+        teamurl = f"/team/{team_id}"
+        teamdata = self.get_json_t(teamurl)
+        #get the fields that we want
+        jfilter = teamdata.execute('$..(team_id,name, division_id, faab_balance, number_of_moves, number_of_trades, manager_id, email, nickname)')
+        filterlist = list(jfilter)
+        teamd = {k: v for d in filterlist for k, v in d.items()}
+        return teamd
+

@@ -17,7 +17,17 @@ class Team:
         self.sc = sc
         self.team_key = team_key
         self.yhandler = yhandler.YHandler(sc)
-
+        data = self.yhandler.get_team_dict(team_key)
+        self.team_id = data["team_id"]
+        self.teamname = data["name"]
+        self.division_id = data["division_id"]
+        self.faab_balance = data["faab_balance"]
+        self.number_of_moves = data["number_of_moves"]
+        self.number_of_trades = data["number_of_trades"]     
+        self.manager_id = data["manager_id"]
+        self.manageremail = data["email"]
+        self.managernickname = data["nickname"]
+  
     def inject_yhandler(self, yhandler):
         self.yhandler = yhandler
 
