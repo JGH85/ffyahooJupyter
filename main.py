@@ -41,7 +41,7 @@ matchup = lg.to_team(myteam.matchup(week))
 # print(f"matchup week {week}:{matchup.name}")
 
 # missing functionality
-# add name property to team
+
 # add players class
 # add custom data for team
 # save data to database
