@@ -117,3 +117,12 @@ class YHandler:
         teamd = {k: v for d in filterlist for k, v in d.items()}
         return teamd
 
+
+    def get_players_by_status(self, league_id, status):
+        """Return the raw JSON when requesting standings for a league.
+
+        :param league_id: League ID to get the standings for
+        :type league_id: str
+        :return: JSON document of the request.
+        """
+        return self.get("league/{}/players".format(league_id))
